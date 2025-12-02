@@ -219,14 +219,8 @@ bool Kruskal(Graph* graph, ofstream* fout)
     // Output MST
     for(int i = 0; i < size; i++) {
         *fout << "[" << i << "]";
-        bool first = true;
         for(auto& edge : mst[i]) {
-            if(first) {
-                *fout << " " << edge.first << "(" << edge.second << ")";
-                first = false;
-            } else {
-                *fout << " " << edge.first << "(" << edge.second << ")";
-            }
+            *fout << " " << edge.first << "(" << edge.second << ")";
         }
         *fout << endl;
     }

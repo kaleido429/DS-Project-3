@@ -52,15 +52,9 @@ bool ListGraph::printGraph(ofstream *fout)	//Definition of print Graph
 	// Print adjacency list for each vertex in ascending order
 	for(int i = 0; i < m_Size; i++) {
 		*fout << "[" << i << "]";
-		bool first = true;
 		// Edges are already in ascending order because map is sorted
 		for(auto& edge : m_List[i]) {
-			if(first) {
-				*fout << " -> (" << edge.first << "," << edge.second << ")";
-				first = false;
-			} else {
-				*fout << " -> (" << edge.first << "," << edge.second << ")";
-			}
+			*fout << " -> (" << edge.first << "," << edge.second << ")";
 		}
 		*fout << endl;
 	}

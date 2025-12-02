@@ -170,8 +170,8 @@ bool Manager::LOAD(const char* filename)
 	fin >> type >> size;
 	
 	if(type == "L") {
-		// List format
-		graph = new ListGraph(false, size); // false indicates List type
+		// List format - false indicates adjacency list storage type
+		graph = new ListGraph(false, size);
 		
 		int from, to, weight;
 		while(fin >> from >> to >> weight) {
@@ -179,8 +179,8 @@ bool Manager::LOAD(const char* filename)
 		}
 	}
 	else if(type == "M") {
-		// Matrix format
-		graph = new MatrixGraph(true, size); // true indicates Matrix type
+		// Matrix format - true indicates adjacency matrix storage type
+		graph = new MatrixGraph(true, size);
 		
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {

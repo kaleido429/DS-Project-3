@@ -1,1 +1,4 @@
 run
+log.txt
+*.o
+*.semmle
