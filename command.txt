@@ -1,0 +1,11 @@
+LOAD
+LOAD graph_L.txt extra_arg
+PRINT extra
+BFS O
+BFS
+DFS
+DIJKSTRA
+BELLMANFORD O 1
+FLOYD
+CENTRALITY extra
+EXIT
