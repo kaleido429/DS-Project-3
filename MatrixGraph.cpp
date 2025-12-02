@@ -29,11 +29,12 @@ MatrixGraph::~MatrixGraph()
 void MatrixGraph::getAdjacentEdges(int vertex, map<int, int>* m)
 {	
 	for (int i = 0; i < m_Size; i++) {
-		// Check both directions for undirected graph
+		// For undirected graph, check both directions
+		// Use the weight from whichever direction has an edge
+		// If both directions have edges, prefer the outgoing edge (vertex -> i)
 		if (m_Mat[vertex][i] != 0) {
 			(*m)[i] = m_Mat[vertex][i];
-		}
-		if (m_Mat[i][vertex] != 0) {
+		} else if (m_Mat[i][vertex] != 0) {
 			(*m)[i] = m_Mat[i][vertex];
 		}
 	}

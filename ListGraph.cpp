@@ -6,14 +6,14 @@
 ListGraph::ListGraph(bool type, int size) : Graph(type, size)
 {
 	m_List = new map<int, int>[size]; // Allocate adjacency list for each vertex
-	kw_graph = new vector<int>[size]; // Allocate vector for each vertex (used for undirected edges tracking)
+	kw_graph = nullptr; // Not used in this implementation
 }
 
 // Destructor: Free allocated memory
 ListGraph::~ListGraph()	
 {
 	delete[] m_List;
-	delete[] kw_graph;
+	// kw_graph is nullptr, no need to delete
 }
 
 // Get adjacent edges (undirected - both directions)

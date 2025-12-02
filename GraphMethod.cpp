@@ -193,29 +193,25 @@ bool Kruskal(Graph* graph, ofstream* fout)
 	
 	int size = graph->getSize();
 	
-	// Collect all edges (undirected)
-	vector<tuple<int, int, int>> edges; // (weight, from, to)
+	// Collect all edges (undirected) using a set to avoid duplicates
+	set<tuple<int, int, int>> edgeSet; // (weight, min_vertex, max_vertex)
 	for (int i = 0; i < size; i++) {
 		map<int, int> adj;
 		graph->getAdjacentEdgesDirect(i, &adj);
 		for (auto& edge : adj) {
 			int to = edge.first;
 			int weight = edge.second;
-			// Add edge only once (avoid duplicates)
-			if (i < to) {
-				edges.push_back(make_tuple(weight, i, to));
-			} else {
-				edges.push_back(make_tuple(weight, to, i));
-			}
+			// Normalize edge representation: (weight, min_vertex, max_vertex)
+			int minV = min(i, to);
+			int maxV = max(i, to);
+			edgeSet.insert(make_tuple(weight, minV, maxV));
 		}
 	}
 	
-	// Remove duplicate edges
-	sort(edges.begin(), edges.end());
-	edges.erase(unique(edges.begin(), edges.end()), edges.end());
+	// Convert set to vector for processing
+	vector<tuple<int, int, int>> edges(edgeSet.begin(), edgeSet.end());
 	
-	// Sort edges by weight
-	sort(edges.begin(), edges.end());
+	// Edges are already sorted by the set (first by weight, then by vertices)
 	
 	UnionFind uf(size);
 	vector<map<int, int>> mst(size); // MST adjacency list
