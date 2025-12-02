@@ -1,0 +1,17 @@
+# Compiled binary
+run
+
+# Object files
+*.o
+
+# Log files
+log.txt
+
+# Temporary files
+*.tmp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
