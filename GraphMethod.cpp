@@ -16,6 +16,14 @@ using namespace std;
 bool BFS(Graph* graph, char option, int vertex, ofstream* fout)
 {
     if(!graph || !fout) return false;
+    bool isDirected;
+    if(option == 'O') {
+        isDirected = true;
+    } else if(option == 'X') {
+        isDirected = false;
+    } else {
+        return false; // Invalid option
+    }
     
     int size = graph->getSize();
     if(vertex < 0 || vertex >= size) return false;
@@ -33,11 +41,9 @@ bool BFS(Graph* graph, char option, int vertex, ofstream* fout)
         result.push_back(curr);
         
         map<int, int> adjacent;
-        if(option == 'O') {
-            // Directed graph
+        if(isDirected) {
             graph->getAdjacentEdgesDirect(curr, &adjacent);
         } else {
-            // Undirected graph
             graph->getAdjacentEdges(curr, &adjacent);
         }
         
@@ -51,7 +57,7 @@ bool BFS(Graph* graph, char option, int vertex, ofstream* fout)
     }
     
     // Output result
-    if(option == 'O') {
+    if(isDirected) {
         *fout << "Directed Graph BFS" << endl;
     } else {
         *fout << "Undirected Graph BFS" << endl;
@@ -71,6 +77,14 @@ bool BFS(Graph* graph, char option, int vertex, ofstream* fout)
 bool DFS(Graph* graph, char option, int vertex, ofstream* fout)
 {
     if(!graph || !fout) return false;
+    bool isDirected;
+    if(option == 'O') {
+        isDirected = true;
+    } else if(option == 'X') {
+        isDirected = false;
+    } else {
+        return false; // Invalid option
+    }
     
     int size = graph->getSize();
     if(vertex < 0 || vertex >= size) return false;
@@ -91,11 +105,9 @@ bool DFS(Graph* graph, char option, int vertex, ofstream* fout)
         result.push_back(curr);
         
         map<int, int> adjacent;
-        if(option == 'O') {
-            // Directed graph
+        if(isDirected) {
             graph->getAdjacentEdgesDirect(curr, &adjacent);
         } else {
-            // Undirected graph
             graph->getAdjacentEdges(curr, &adjacent);
         }
         
@@ -113,7 +125,7 @@ bool DFS(Graph* graph, char option, int vertex, ofstream* fout)
     }
     
     // Output result
-    if(option == 'O') {
+    if(isDirected) {
         *fout << "Directed Graph DFS" << endl;
     } else {
         *fout << "Undirected Graph DFS" << endl;
@@ -233,6 +245,14 @@ bool Kruskal(Graph* graph, ofstream* fout)
 bool Dijkstra(Graph* graph, char option, int vertex, ofstream* fout)
 {
     if(!graph || !fout) return false;
+    bool isDirected;
+    if(option == 'O') {
+        isDirected = true;
+    } else if(option == 'X') {
+        isDirected = false;
+    } else {
+        return false; // Invalid option
+    }
     
     int size = graph->getSize();
     if(vertex < 0 || vertex >= size) return false;
@@ -240,7 +260,7 @@ bool Dijkstra(Graph* graph, char option, int vertex, ofstream* fout)
     // Check for negative weights
     for(int i = 0; i < size; i++) {
         map<int, int> adjacent;
-        if(option == 'O') {
+        if(isDirected) {
             graph->getAdjacentEdgesDirect(i, &adjacent);
         } else {
             graph->getAdjacentEdges(i, &adjacent);
@@ -268,7 +288,7 @@ bool Dijkstra(Graph* graph, char option, int vertex, ofstream* fout)
         visited[curr] = true;
         
         map<int, int> adjacent;
-        if(option == 'O') {
+        if(isDirected) {
             graph->getAdjacentEdgesDirect(curr, &adjacent);
         } else {
             graph->getAdjacentEdges(curr, &adjacent);
@@ -287,7 +307,7 @@ bool Dijkstra(Graph* graph, char option, int vertex, ofstream* fout)
     }
     
     // Output result
-    if(option == 'O') {
+    if(isDirected) {
         *fout << "Directed Graph Dijkstra" << endl;
     } else {
         *fout << "Undirected Graph Dijkstra" << endl;
@@ -323,6 +343,14 @@ bool Dijkstra(Graph* graph, char option, int vertex, ofstream* fout)
 bool Bellmanford(Graph* graph, char option, int s_vertex, int e_vertex, ofstream* fout) 
 {
     if(!graph || !fout) return false;
+    bool isDirected;
+    if(option == 'O') {
+        isDirected = true;
+    } else if(option == 'X') {
+        isDirected = false;
+    } else {
+        return false; // Invalid option
+    }
     
     int size = graph->getSize();
     if(s_vertex < 0 || s_vertex >= size || e_vertex < 0 || e_vertex >= size) return false;
@@ -336,7 +364,7 @@ bool Bellmanford(Graph* graph, char option, int s_vertex, int e_vertex, ofstream
     vector<tuple<int, int, int>> edges; // (from, to, weight)
     for(int i = 0; i < size; i++) {
         map<int, int> adjacent;
-        if(option == 'O') {
+        if(isDirected) {
             graph->getAdjacentEdgesDirect(i, &adjacent);
         } else {
             graph->getAdjacentEdges(i, &adjacent);
@@ -372,7 +400,7 @@ bool Bellmanford(Graph* graph, char option, int s_vertex, int e_vertex, ofstream
     }
     
     // Output result
-    if(option == 'O') {
+    if(isDirected) {
         *fout << "Directed Graph Bellman-Ford" << endl;
     } else {
         *fout << "Undirected Graph Bellman-Ford" << endl;
@@ -406,6 +434,14 @@ bool Bellmanford(Graph* graph, char option, int s_vertex, int e_vertex, ofstream
 bool FLOYD(Graph* graph, char option, ofstream* fout)
 {
     if(!graph || !fout) return false;
+    bool isDirected;
+    if(option == 'O') {
+        isDirected = true;
+    } else if(option == 'X') {
+        isDirected = false;
+    } else {
+        return false; // Invalid option
+    }
     
     int size = graph->getSize();
     
@@ -420,7 +456,7 @@ bool FLOYD(Graph* graph, char option, ofstream* fout)
     // Fill in direct edges
     for(int i = 0; i < size; i++) {
         map<int, int> adjacent;
-        if(option == 'O') {
+        if(isDirected) {
             graph->getAdjacentEdgesDirect(i, &adjacent);
         } else {
             graph->getAdjacentEdges(i, &adjacent);
@@ -449,7 +485,7 @@ bool FLOYD(Graph* graph, char option, ofstream* fout)
     }
     
     // Output result
-    if(option == 'O') {
+    if(isDirected) {
         *fout << "Directed Graph Floyd" << endl;
     } else {
         *fout << "Undirected Graph Floyd" << endl;

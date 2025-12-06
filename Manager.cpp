@@ -21,6 +21,9 @@ Manager::~Manager()
 		fout.close();	//close log.txt File
 }
 
+const int EXIT_ERROR_CODE = 1000;
+const int UNKNOWN_COMMAND_ERROR_CODE = 1100;
+
 void Manager::run(const char* command_txt){
 	ifstream fin;	//Command File Input File Stream
 	fin.open(command_txt, ios_base::in);//File open with read mode
@@ -70,6 +73,10 @@ void Manager::run(const char* command_txt){
 				printErrorCode(300);
 			} else {
 				char option = tokens[1][0];
+				if(option != 'O' && option != 'X') {
+					printErrorCode(300);
+					continue;
+				}
 				int vertex = stoi(tokens[2]);
 				if(!mBFS(option, vertex)) {
 					printErrorCode(300);
@@ -81,6 +88,10 @@ void Manager::run(const char* command_txt){
 				printErrorCode(400);
 			} else {
 				char option = tokens[1][0];
+				if(option != 'O' && option != 'X') {
+					printErrorCode(400);
+					continue;
+				}
 				int vertex = stoi(tokens[2]);
 				if(!mDFS(option, vertex)) {
 					printErrorCode(400);
@@ -101,6 +112,10 @@ void Manager::run(const char* command_txt){
 				printErrorCode(600);
 			} else {
 				char option = tokens[1][0];
+				if(option != 'O' && option != 'X') {
+					printErrorCode(600);
+					continue;
+				}
 				int vertex = stoi(tokens[2]);
 				if(!mDIJKSTRA(option, vertex)) {
 					printErrorCode(600);
@@ -112,6 +127,10 @@ void Manager::run(const char* command_txt){
 				printErrorCode(700);
 			} else {
 				char option = tokens[1][0];
+				if(option != 'O' && option != 'X') {
+					printErrorCode(700);
+					continue;
+				}
 				int s_vertex = stoi(tokens[2]);
 				int e_vertex = stoi(tokens[3]);
 				if(!mBELLMANFORD(option, s_vertex, e_vertex)) {
@@ -124,6 +143,10 @@ void Manager::run(const char* command_txt){
 				printErrorCode(800);
 			} else {
 				char option = tokens[1][0];
+				if(option != 'O' && option != 'X') {
+					printErrorCode(800);
+					continue;
+				}
 				if(!mFLOYD(option)) {
 					printErrorCode(800);
 				}
@@ -139,10 +162,17 @@ void Manager::run(const char* command_txt){
 			}
 		}
 		else if(cmd == "EXIT") {
+			if(tokens.size() != 1) {
+				printErrorCode(EXIT_ERROR_CODE);
+				continue;
+			}
 			fout << "========EXIT========" << endl;
 			fout << "Success" << endl;
 			fout << "====================" << endl;
 			break;
+		}
+		else {
+			printErrorCode(UNKNOWN_COMMAND_ERROR_CODE);
 		}
 	}
 	
